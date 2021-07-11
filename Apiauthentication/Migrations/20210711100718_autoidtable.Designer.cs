@@ -4,14 +4,16 @@ using Apiauthentication.Authentication;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Apiauthentication.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210711100718_autoidtable")]
+    partial class autoidtable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -84,6 +86,21 @@ namespace Apiauthentication.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("Apiauthentication.Models.AutoId", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("IdName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AutoIds");
+                });
+
             modelBuilder.Entity("Apiauthentication.Models.Doctor", b =>
                 {
                     b.Property<int>("Id")
@@ -95,7 +112,6 @@ namespace Apiauthentication.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("DUUId")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("RoleId")
